@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Remote Preview check</title>
+<style>body{font:16px system-ui;padding:24px}button,input{font:inherit;padding:8px}li{padding:4px}</style>
+<h1>Remote Preview check</h1>
+<p>This page runs from a remote file inside the preview.</p>
+<button id="counter">Clicked 0 times</button>
+<p><label>Filter counties <input id="filter"></label></p>
+<ul><li>Autauga</li><li>Baldwin</li><li>Barbour</li></ul>
+<p id="isolation"></p>
+<script>
+let count = 0;
+document.querySelector('#counter').onclick = () => {
+  document.querySelector('#counter').textContent = `Clicked ${++count} times`;
+};
+document.querySelector('#filter').oninput = event => {
+  document.querySelectorAll('li').forEach(item => {
+    item.hidden = !item.textContent.toLowerCase().includes(event.target.value.toLowerCase());
+  });
+};
+try {
+  void parent.document.body;
+  document.querySelector('#isolation').textContent = 'FAIL: parent document is accessible';
+} catch {
+  document.querySelector('#isolation').textContent = 'PASS: parent document is isolated';
+}
+</script>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remote File Viewer</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:14px var(--font-sans,system-ui);color:var(--color-text-primary,#202124);background:var(--color-background-primary,#fff);height:100vh;display:flex;flex-direction:column;overflow:hidden}header{padding:12px 16px;border-bottom:1px solid var(--color-border-primary,#ddd);display:flex;gap:12px;align-items:center}h1{font-size:14px;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}button,input,select{font:inherit;color:inherit;border:1px solid var(--color-border-primary,#ccc);border-radius:6px;background:var(--color-background-secondary,#f7f7f7);padding:6px 10px}button{cursor:var(--cursor-interaction,pointer)}button:disabled{opacity:.45;cursor:default}input{background:var(--color-background-primary,#fff)}#status{margin:0;padding:10px 16px;min-height:38px;color:var(--color-text-secondary,#555);white-space:pre-wrap}#status.error{color:var(--color-text-danger,#b3261e)}#csv,#html{min-height:0;flex:1;display:flex;flex-direction:column}[hidden]{display:none!important}#controls{padding:0 16px 12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}label{display:flex;align-items:center;gap:8px}#search{width:min(280px,65vw)}#table-scroll{flex:1;min-height:0;overflow:auto;margin:0 16px}table{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}th{position:sticky;top:0;background:var(--color-background-secondary,#f7f7f7);z-index:1;text-align:left;border-bottom:1px solid var(--color-border-primary,#ccc)}th button{border:0;width:100%;text-align:left;white-space:nowrap;background:transparent;padding:10px}td{border-bottom:1px solid var(--color-border-primary,#eee);padding:8px 10px;vertical-align:top;white-space:pre-wrap;min-width:100px;max-width:420px;overflow-wrap:anywhere}footer{padding:12px 16px;display:flex;gap:12px;align-items:center;justify-content:flex-end}#page{margin-right:auto}#html-help{font-size:12px;color:var(--color-text-secondary,#555);margin:0;padding:0 16px 10px}iframe{flex:1;min-height:0;width:100%;border:0;background:white}
+#selectors,#parquet-controls{display:flex;gap:12px;padding:0 16px 10px;align-items:center;flex-wrap:wrap}select{max-width:70vw}#json{overflow:auto;max-height:40vh;padding:8px 16px;border-bottom:1px solid #ddd}#json details{margin-left:14px}#json summary{cursor:pointer;overflow-wrap:anywhere}#geo{height:38vh;min-height:180px;position:relative;margin:0 16px 10px}#map{width:100%;height:100%;background:var(--color-background-secondary,#f7f7f7);touch-action:none;border:1px solid #ddd}#map-tools{position:absolute;top:8px;right:8px;display:flex;gap:4px}.feature{fill:#5184cc55;stroke:#315f9e;vector-effect:non-scaling-stroke;cursor:pointer}.feature:hover,.feature.selected{fill:#faab4480;stroke:#b66100}tr.selected td{background:#faab4433}#map-selection{position:absolute;bottom:4px;left:8px;background:var(--color-background-primary,#fff);max-width:70%;font-size:12px}#schema{margin:0 16px 8px;max-height:90px;overflow:auto}#archive-list{max-height:22vh;overflow:auto;margin:0 16px 12px;font-size:12px;white-space:pre-wrap}#json pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:2px 16px}#json button{margin:6px 16px}
+</style>
+</head>
+<body>
+<header><h1 id="filename">Remote File Viewer</h1><button id="refresh" type="button" disabled>Refresh</button></header>
+<p id="status" role="status" aria-live="polite">Waiting for a file…</p>
+<div id="selectors" hidden><label id="archive-label" hidden>ZIP entry <select id="archive-entry"></select></label><label id="sheet-label" hidden>Sheet <select id="sheet"></select></label></div>
+<pre id="archive-list" hidden></pre>
+<div id="parquet-controls" hidden><label>First row <input id="row-start" type="number" min="1" value="1"></label><button id="load-range" type="button">Load rows</button></div>
+<details id="schema" hidden><summary>Parquet schema</summary><pre id="schema-text"></pre></details>
+<section id="json" aria-label="JSON tree" hidden></section>
+<section id="geo" hidden><svg id="map" role="img" aria-label="Geometry preview"></svg><div id="map-tools"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="reset-map">Reset view</button></div><span id="map-selection"></span></section>
+<section id="csv" hidden>
+  <div id="controls"><label for="search">Search <input id="search" type="search" autocomplete="off"></label><span id="count"></span></div>
+  <div id="table-scroll"><table aria-label="Data preview"><thead id="head"></thead><tbody id="body"></tbody></table></div>
+  <footer><span id="page"></span><button id="previous" type="button">Previous</button><button id="next" type="button">Next</button></footer>
+</section>
+<section id="html" hidden>
+  <p id="html-help">Self-contained HTML. Inline scripts run in an isolated frame. Relative and network-loaded assets are restricted. Navigation limits depend on the Codex host.</p>
+  <iframe id="document" sandbox="allow-scripts" referrerpolicy="no-referrer" title="HTML file preview"></iframe>
+</section>
+<script>__VIEWER_SCRIPT__</script>
+</body>
+</html>

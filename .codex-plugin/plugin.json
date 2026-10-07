@@ -1,0 +1,20 @@
+{
+  "name": "remote-file-viewer",
+  "version": "0.2.0",
+  "description": "Read-only previews of tables, workbooks, JSON, geometry, ZIP contents, and HTML inside Codex.",
+  "author": {
+    "name": "Lukasz Jocz"
+  },
+  "interface": {
+    "displayName": "Remote File Viewer",
+    "shortDescription": "View tables, maps, workbooks, and ZIPs",
+    "longDescription": "Read-only previews of tables, workbooks, JSON, geometry, ZIP contents, and HTML inside Codex. Files use the current Codex host connection.",
+    "developerName": "Lukasz Jocz",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ],
+    "defaultPrompt": "Open a supported data file with Remote File Viewer."
+  },
+  "mcpServers": "./mcp.json"
+}

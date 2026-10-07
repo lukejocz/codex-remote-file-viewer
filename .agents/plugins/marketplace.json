@@ -1,0 +1,17 @@
+{
+  "name": "remote-file-viewer",
+  "plugins": [
+    {
+      "name": "remote-file-viewer",
+      "source": {
+        "source": "local",
+        "path": "./build/remote-file-viewer"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

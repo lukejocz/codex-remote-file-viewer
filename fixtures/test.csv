@@ -1,0 +1,5 @@
+county_geoid,county_name,count,notes
+01001,Autauga,2,"comma, inside"
+01003,Baldwin,10,"He said ""hello"""
+01005,Barbour,0,"first line
+second line"
